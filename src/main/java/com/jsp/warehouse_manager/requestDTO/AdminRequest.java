@@ -1,4 +1,4 @@
-package com.jsp.warehouse_manager.adminRequestDTO;
+package com.jsp.warehouse_manager.requestDTO;
 
 import org.springframework.stereotype.Component;
 
@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Component
 @Setter
 @Getter
@@ -23,8 +24,7 @@ public class AdminRequest {
     @NotNull(message = "Name Cannot be Blank")
     private String adminName;
 
-    @Email(regexp = "([a-zA-Z0-9]+)([\\.{1}])?([a-zA-Z0-9]+)\\@(?:gmail|GMAIL)([\\.])(?:com|COM)\n" + //
-                "",message = "email should containg @gmail.com at the end" )
+    @Email(regexp = "^[\\w\\.-]+@(gmail|GMAIL)\\.(com|COM)$",message = "email should containg @gmail.com at the end" )
     private String adminEmail;
 
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "Password must contain at least one letter, one number, one special character")

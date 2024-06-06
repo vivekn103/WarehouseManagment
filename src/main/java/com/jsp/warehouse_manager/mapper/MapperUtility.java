@@ -2,15 +2,19 @@ package com.jsp.warehouse_manager.mapper;
 
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.jsp.warehouse_manager.adminRequestDTO.AdminRequest;
-import com.jsp.warehouse_manager.adminResponseDTO.AdminResponse;
 import com.jsp.warehouse_manager.entity.Admin;
-import com.jsp.warehouse_manager.enums.Privilages;
+import com.jsp.warehouse_manager.requestDTO.AdminRequest;
+import com.jsp.warehouse_manager.responseDTO.AdminResponse;
 
 @Component
 public class MapperUtility {
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public Admin mapRequestToAdmin(AdminRequest adminRequest,Admin admin)
     {   
@@ -20,7 +24,7 @@ public class MapperUtility {
         }
         admin.setAdminEmail(adminRequest.getAdminEmail());
         admin.setAdminName(adminRequest.getAdminName());
-        admin.setPassword(adminRequest.getPassword());
+        admin.setPassword( passwordEncoder.encode(adminRequest.getPassword()) );
 
         return admin;
     } 

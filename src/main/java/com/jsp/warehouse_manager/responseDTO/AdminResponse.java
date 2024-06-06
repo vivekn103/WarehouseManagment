@@ -1,4 +1,4 @@
-package com.jsp.warehouse_manager.adminResponseDTO;
+package com.jsp.warehouse_manager.responseDTO;
 
 import java.util.List;
 
