@@ -1,4 +1,4 @@
-package com.jsp.warehouse_manager.adminRepo;
+package com.jsp.warehouse_manager.repository;
 
 import java.util.Optional;
 
@@ -17,4 +17,7 @@ public interface AdminRepository extends JpaRepository<Admin,Integer>{
     // Optional<Admin> existsByAdminType(@Param("adminType") AdminType adminType);
 
      boolean existsByAdminType(AdminType adminType);
+
+     @Query(value = "Select * FROM warehousemanager.admin where adminEmail = :username",nativeQuery=true)
+    Optional<Admin> findByEmail(@Param("username") String username);
 }

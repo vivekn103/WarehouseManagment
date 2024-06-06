@@ -1,4 +1,4 @@
-package com.jsp.warehouse_manager.adminServiceIMPL;
+package com.jsp.warehouse_manager.serviceIMPL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,14 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jsp.warehouse_manager.adminRepo.AdminRepository;
-import com.jsp.warehouse_manager.adminRequestDTO.AdminRequest;
-import com.jsp.warehouse_manager.adminResponseDTO.AdminResponse;
-import com.jsp.warehouse_manager.adminService.AdminService;
 import com.jsp.warehouse_manager.customException.IllegalModificationException;
 import com.jsp.warehouse_manager.entity.Admin;
 import com.jsp.warehouse_manager.enums.AdminType;
 import com.jsp.warehouse_manager.mapper.MapperUtility;
+import com.jsp.warehouse_manager.repository.AdminRepository;
+import com.jsp.warehouse_manager.requestDTO.AdminRequest;
+import com.jsp.warehouse_manager.responseDTO.AdminResponse;
+import com.jsp.warehouse_manager.service.AdminService;
 import com.jsp.warehouse_manager.utility.ResponseStructure;
 
 @Service

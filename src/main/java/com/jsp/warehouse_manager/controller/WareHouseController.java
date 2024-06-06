@@ -12,6 +12,6 @@ public class WareHouseController {
     @GetMapping("/warehouses")
     public String createWarehouse()
     {
-        return "Warehouse Created";
+        return "Warehouse found";
     }
 }
