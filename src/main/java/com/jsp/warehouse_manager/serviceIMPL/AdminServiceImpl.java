@@ -20,6 +20,8 @@ import com.jsp.warehouse_manager.responseDTO.AdminResponse;
 import com.jsp.warehouse_manager.service.AdminService;
 import com.jsp.warehouse_manager.utility.ResponseStructure;
 
+import jakarta.validation.Valid;
+
 @Service
 public class AdminServiceImpl implements AdminService{
     @Autowired
@@ -46,6 +48,12 @@ public ResponseEntity<ResponseStructure<AdminResponse>> saveAdminToDB(AdminReque
                 );
           }
          
+}
+
+@Override
+public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@Valid AdminRequest adminRequest) {
+  // TODO Auto-generated method stub
+  throw new UnsupportedOperationException("Unimplemented method 'createAdmin'");
 }
 
 }

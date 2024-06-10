@@ -27,4 +27,11 @@ public class AdminController {
         
         return adminService.saveAdminToDB(adminRequest);
     }
+
+    @PostMapping("/admins")
+    public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@RequestBody @Valid AdminRequest adminRequest) {
+        
+        return adminService.createAdmin(adminRequest);
+    }
+    
 }
