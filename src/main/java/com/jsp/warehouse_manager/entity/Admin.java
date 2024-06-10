@@ -36,6 +36,6 @@ public class Admin {
     private String password;
    @Enumerated(EnumType.STRING)
     private AdminType adminType;
-    @OneToOne
-    private WareHouse warehouse;
+   
+    // private WareHouse warehouse;
 }

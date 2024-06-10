@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.jsp.warehouse_manager.customException.IllegalModificationException;
+import com.jsp.warehouse_manager.customException.WarehouseWithIdNotPresent;
 
 
 
@@ -56,6 +57,14 @@ public class HandlerAdapterClass {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new ErrorStructure<String>()
                     .setErrorMessage("Forbidden To Create Another SUPER_ADMIN")
                     .setStatuscode(HttpStatus.BAD_REQUEST.value())
+                    .setRootCause(e.getMessage()));
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorStructure<String>> handlerwarehouseWithIdNotPresent(WarehouseWithIdNotPresent e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body( new ErrorStructure<String>()
+                    .setErrorMessage("Warehouse with id is not present")
+                    .setStatuscode(HttpStatus.NOT_FOUND.value())
                     .setRootCause(e.getMessage()));
     }
 }

@@ -11,10 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jsp.warehouse_manager.customException.IllegalModificationException;
+import com.jsp.warehouse_manager.customException.WarehouseWithIdNotPresent;
 import com.jsp.warehouse_manager.entity.Admin;
+import com.jsp.warehouse_manager.entity.WareHouse;
 import com.jsp.warehouse_manager.enums.AdminType;
 import com.jsp.warehouse_manager.mapper.MapperUtility;
 import com.jsp.warehouse_manager.repository.AdminRepository;
+import com.jsp.warehouse_manager.repository.WarehouseRepo;
 import com.jsp.warehouse_manager.requestDTO.AdminRequest;
 import com.jsp.warehouse_manager.responseDTO.AdminResponse;
 import com.jsp.warehouse_manager.service.AdminService;
@@ -28,6 +31,8 @@ public class AdminServiceImpl implements AdminService{
     private AdminRepository adminRepo;
     @Autowired
     private MapperUtility mapper;
+    @Autowired
+    private WarehouseRepo warehouseRepo;
 
 public ResponseEntity<ResponseStructure<AdminResponse>> saveAdminToDB(AdminRequest adminRequest){
 
@@ -51,9 +56,26 @@ public ResponseEntity<ResponseStructure<AdminResponse>> saveAdminToDB(AdminReque
 }
 
 @Override
-public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@Valid AdminRequest adminRequest) {
-  // TODO Auto-generated method stub
-  throw new UnsupportedOperationException("Unimplemented method 'createAdmin'");
+public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(AdminRequest adminRequest,int warehouseId) {
+    
+
+ return warehouseRepo.findById(warehouseId).map(warehouse ->
+          {
+            Admin admin = mapper.mapRequestToAdmin(adminRequest, new Admin());
+            admin.setAdminType(AdminType.ADMIN);
+
+            admin = adminRepo.save(admin);
+
+            warehouse.setAdmin(admin);
+            warehouse.setWarehouseName("Hebaal");
+            warehouseRepo.save(warehouse);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(
+                  new ResponseStructure<AdminResponse>()
+                  .setMessage("Admin Created")
+                  .setData(mapper.mapToAdminResponse(admin))
+                  .setStatuscode(HttpStatus.CREATED.value()));
+          }).orElseThrow(()-> new WarehouseWithIdNotPresent("Warehouse with Id is not present"));
 }
 
 }
