@@ -8,8 +8,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.jsp.warehouse_manager.entity.Admin;
+import com.jsp.warehouse_manager.entity.WareHouse;
 import com.jsp.warehouse_manager.requestDTO.AdminRequest;
+import com.jsp.warehouse_manager.requestDTO.WarehouseRequest;
 import com.jsp.warehouse_manager.responseDTO.AdminResponse;
+import com.jsp.warehouse_manager.responseDTO.WarehouseResponse;
 
 @Component
 public class MapperUtility {
@@ -37,5 +40,18 @@ public class MapperUtility {
                 .adminEmail(admin.getAdminEmail())
                 .id(admin.getId())
                 .build();
+    }
+
+    public WareHouse mapRequestToWarehouse(WarehouseRequest request,WareHouse warehouse)
+    {
+        warehouse.setWarehouseName(request.getWarehouseName());
+         return warehouse;
+    } 
+
+
+    public WarehouseResponse mapTOWarehouseResponse(WareHouse warehouse){
+        return WarehouseResponse.builder().warehouseName(warehouse.getWarehouseName())
+                        .id(warehouse.getWareHouseId())
+                        .totalCapacity(0).build();
     }
 }

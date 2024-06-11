@@ -2,6 +2,7 @@ package com.jsp.warehouse_manager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,8 +30,9 @@ public class AdminController {
         return adminService.saveAdminToDB(adminRequest);
     }
 
+    @PreAuthorize("hasAuthority('CREATE_ADMIN')")
     @PostMapping("/warehouses/{warehouseId}/admins")
-    public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@RequestBody @Valid AdminRequest adminRequest,@PathVariable("warehouseId")int warehouseId) {
+    public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@RequestBody AdminRequest adminRequest,@PathVariable("warehouseId")int warehouseId) {
         
         return adminService.createAdmin(adminRequest,warehouseId);
     }

@@ -18,6 +18,6 @@ public interface AdminRepository extends JpaRepository<Admin,Integer>{
 
      boolean existsByAdminType(AdminType adminType);
 
-     @Query(value = "Select * FROM warehousemanager.admin where adminEmail = :username",nativeQuery=true)
+     @Query(value = "Select * FROM warehousemanager.admin where admin_email = :username",nativeQuery=true)
     Optional<Admin> findByEmail(@Param("username") String username);
 }
