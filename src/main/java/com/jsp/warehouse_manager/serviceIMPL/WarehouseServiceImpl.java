@@ -3,9 +3,6 @@ package com.jsp.warehouse_manager.serviceIMPL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.jsp.warehouse_manager.entity.WareHouse;
@@ -45,6 +42,45 @@ public class WarehouseServiceImpl implements WarehouseService{
             .setMessage("Warehouse Created")
             .setStatuscode(HttpStatus.CREATED.value())
         );
+
+    }
+
+    @Override
+    public ResponseEntity<ResponseStructure<WarehouseResponse>> updateWarehouse(WarehouseRequest warehouseRequest,
+            int warehouseId) {
+
+                return warehouseRepo.findById(warehouseId)
+                        .map(warehouse ->{
+
+                            WareHouse w =mapper.mapRequestToWarehouse(warehouseRequest,new WareHouse());
+                            warehouse.setWarehouseName(w.getWarehouseName());
+                            warehouse.setAdmin(w.getAdmin());
+
+                            warehouse=warehouseRepo.save(warehouse);
+
+                            return ResponseEntity.status(HttpStatus.ACCEPTED)
+                                    .body(new ResponseStructure<WarehouseResponse>()
+                                    .setData(mapper.mapTOWarehouseResponse(warehouse))
+                                    .setMessage("Successfully Modified The Warehouse")
+                                    .setStatuscode(HttpStatus.ACCEPTED.value()));
+                        })
+                        .orElseThrow();
+        
+    }
+
+    @Override
+    public ResponseEntity<ResponseStructure<WarehouseResponse>> fetchWarehouse(int warehouseId) {
+        
+         return   warehouseRepo.findById(warehouseId).map( (warehouses) ->{
+               
+
+               return ResponseEntity.status(HttpStatus.FOUND)
+                        .body(new ResponseStructure<WarehouseResponse>()
+                                .setData(mapper.mapTOWarehouseResponse(warehouses))
+                                .setMessage("Found")
+                                .setStatuscode(HttpStatus.FOUND.value()));
+                        
+            }).orElseThrow();
 
     }
 

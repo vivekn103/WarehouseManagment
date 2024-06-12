@@ -7,10 +7,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.jsp.warehouse_manager.entity.Address;
 import com.jsp.warehouse_manager.entity.Admin;
 import com.jsp.warehouse_manager.entity.WareHouse;
+import com.jsp.warehouse_manager.requestDTO.AddressRequest;
 import com.jsp.warehouse_manager.requestDTO.AdminRequest;
 import com.jsp.warehouse_manager.requestDTO.WarehouseRequest;
+import com.jsp.warehouse_manager.responseDTO.AddressResponse;
 import com.jsp.warehouse_manager.responseDTO.AdminResponse;
 import com.jsp.warehouse_manager.responseDTO.WarehouseResponse;
 
@@ -53,5 +56,30 @@ public class MapperUtility {
         return WarehouseResponse.builder().warehouseName(warehouse.getWarehouseName())
                         .id(warehouse.getWareHouseId())
                         .totalCapacity(0).build();
+    }
+
+    public Address mapRequestToAddress(AddressRequest addressRequest,Address address)
+    {
+        return Address.builder()
+                    .addressLine(addressRequest.getAddressLine())
+                    .city(addressRequest.getCity())
+                    .pincode(addressRequest.getPincode())
+                    .state(addressRequest.getState())
+                    .latitude(addressRequest.getLatitude())
+                    .longitude(addressRequest.getLongitude())
+                    .build();
+    }
+
+    public AddressResponse mapTOAddressResponse(Address address)
+    {
+        return AddressResponse.builder()
+                    .addressLine(address.getAddressLine())
+                    .city(address.getCity())
+                    .id(address.getId())
+                    .state(address.getState())
+                    .pincode(address.getPincode())
+                    .latitude(address.getLatitude())
+                    .longitude(address.getLongitude())
+                    .build();
     }
 }

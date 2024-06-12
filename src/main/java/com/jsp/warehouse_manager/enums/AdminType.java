@@ -6,7 +6,7 @@ public enum AdminType {
                         Privilages.CREATE_WAREHOUSE,
                         Privilages.CREATE_ADDRESS,
                         Privilages.CREATE_STORAGE,
-                        Privilages.REAR,
+                        Privilages.READ,
                         Privilages.UPDATE_ADDRESS,
                         Privilages.UPDATE_ADMIN,
                         Privilages.UPDATE_WAREHOUSE,
@@ -17,7 +17,7 @@ public enum AdminType {
                         Privilages.DEL_STORAGE
                         )),
     ADMIN(List.of(Privilages.CREATE_STORAGE,
-                    Privilages.REAR, 
+                    Privilages.READ, 
                     Privilages.UPDATE_ADMIN,
                     Privilages.UPDATE_STORAGE,
                     Privilages.DEL_STORAGE

@@ -14,6 +14,11 @@ import com.jsp.warehouse_manager.utility.ResponseStructure;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
 
 
 @RestController
@@ -27,8 +32,20 @@ public class WareHouseController {
     @PostMapping("/warehouses")
     public ResponseEntity<ResponseStructure<WarehouseResponse>> createWarehouse(@RequestBody WarehouseRequest warehouseRequest) {
         
-        System.out.println("WHarehouse Request:"+ warehouseRequest.getWarehouseName());
         return warehouseService.createWarehouse(warehouseRequest);
     }
+
+    @PreAuthorize("hasAuthority('CREATE_WAREHOUSE') && hasAuthority('UPDATE_STORAGE')")
+    @PutMapping("warehouses/{warehouseId}")
+    public ResponseEntity<ResponseStructure<WarehouseResponse>> updateWarehouse(@PathVariable("warehouseId") int warehouseId, @RequestBody WarehouseRequest warehouseRequest) {
+        
+        return warehouseService.updateWarehouse(warehouseRequest,warehouseId);
+    }
+
+    @PreAuthorize("hasAuthority('CREATE_STORAGE') && hasAuthority('READ')")
+    @GetMapping("/warehouses/{warehouseId}")
+    public  ResponseEntity<ResponseStructure<WarehouseResponse>> fetchWarehouse(@PathVariable("warehouseId") int warehouseId) {
+        return warehouseService.fetchWarehouse(warehouseId);
     
+    }
 }

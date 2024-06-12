@@ -13,7 +13,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.jsp.warehouse_manager.customException.AddressWithIdNotPresent;
+import com.jsp.warehouse_manager.customException.AdminWithIdNotPresent;
 import com.jsp.warehouse_manager.customException.IllegalModificationException;
+import com.jsp.warehouse_manager.customException.NoAdminsArePresent;
 import com.jsp.warehouse_manager.customException.WarehouseWithIdNotPresent;
 
 
@@ -67,4 +70,32 @@ public class HandlerAdapterClass {
                     .setStatuscode(HttpStatus.NOT_FOUND.value())
                     .setRootCause(e.getMessage()));
     }
+
+
+    
+    @ExceptionHandler
+    public ResponseEntity<ErrorStructure<String>> handleradminWithIdNotPresent(AdminWithIdNotPresent e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body( new ErrorStructure<String>()
+                    .setErrorMessage("Admin With Provided Id Is Not Present")
+                    .setStatuscode(HttpStatus.NOT_FOUND.value())
+                    .setRootCause(e.getMessage()));
+    }
+
+    
+    @ExceptionHandler
+    public ResponseEntity<ErrorStructure<String>> handleradminWithIdNotPresent(NoAdminsArePresent e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body( new ErrorStructure<String>()
+                    .setErrorMessage("NO Admins Are Found")
+                    .setStatuscode(HttpStatus.NOT_FOUND.value())
+                    .setRootCause(e.getMessage()));
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorStructure<String>> handleraddressWithIdNotPresent(AddressWithIdNotPresent e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body( new ErrorStructure<String>()
+                    .setErrorMessage("NO Address Are Found with the ID you have specefied")
+                    .setStatuscode(HttpStatus.NOT_FOUND.value())
+                    .setRootCause(e.getMessage()));
+    }
+
 }

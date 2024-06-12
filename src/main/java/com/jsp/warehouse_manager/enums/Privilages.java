@@ -6,7 +6,7 @@ public enum Privilages {
     CREATE_ADDRESS,
     CREATE_STORAGE,
 
-    REAR,
+    READ,
 
     UPDATE_ADMIN,
     UPDATE_WAREHOUSE,
